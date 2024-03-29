@@ -15,8 +15,4 @@ export class CachingService {
   get(key: string) {
     return this.cache.get(key)
   }
-
-  has(key: string) {
-    return this.cache.has(key);
-  }
 }
