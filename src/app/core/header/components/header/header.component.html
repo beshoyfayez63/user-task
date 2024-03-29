@@ -1,0 +1,20 @@
+<div class="header">
+  <div class="header-container">
+    <div class="search ml-auto">
+      <app-search-input [config]="config" (onSelectItem)="goToUserDetailsPage($event?.id)"
+                        placeholder="Search for user by id ex: 1"
+      >
+        <ng-template #customOption let-user>
+          <div class="user-option">
+            <div class="img-container">
+              <img [src]="user?.avatar" [alt]="user?.first_name">
+            </div>
+            <div class="user-name">
+              <span>{{user.first_name}} {{user.last_name}}</span>
+            </div>
+          </div>
+        </ng-template>
+      </app-search-input>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+
+<ng-container class="loading" *ngIf="loadingService.loadingSub | async">
+  <app-loading-spinner *ngIf="!loaderTemplate" />
+  <ng-container *ngIf="loaderTemplate" [ngTemplateOutlet]="loaderTemplate" />
+</ng-container>

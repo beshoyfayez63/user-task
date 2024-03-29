@@ -1,0 +1,6 @@
+<button class="back-btn" routerLink="../">
+  <span class="pi pi-arrow-left"></span>
+</button>
+<div class="user-details" *ngIf="(user | async) as _user">
+  <app-user-card [user]="_user" />
+</div>

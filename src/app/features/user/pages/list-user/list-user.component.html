@@ -1,0 +1,9 @@
+<app-card-listing [config]="cardConfig" [pagination]="pagination">
+  <ng-template #cardTemplate let-data>
+    <app-user-card
+      *ngFor="let user of data; trackBy: trackUser"
+      [user]="user" (click)="userService.goToUserDetailsPage(user.id)" />
+  </ng-template>
+</app-card-listing>
+
+<app-pagination #pagination></app-pagination>

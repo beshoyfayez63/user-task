@@ -1,0 +1,15 @@
+<p-autoComplete
+  [(ngModel)]="selectedItem"
+  (onSelect)="onSelectItem.emit(selectedItem)"
+  [optionLabel]="selectedItemLabel"
+  [dataKey]="dataKey"
+  [suggestions]="items"
+  [placeholder]="placeholder"
+  (completeMethod)="search($event)"
+>
+
+  <ng-template let-item pTemplate="item">
+    <ng-container [ngTemplateOutlet]="customOption" [ngTemplateOutletContext]="{$implicit: item}" *ngIf="customOption" />
+    <span *ngIf="!customOption">{{item[this.optionLabel]}}</span>
+  </ng-template>
+</p-autoComplete>
