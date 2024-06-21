@@ -26,6 +26,7 @@ export class PaginationComponent implements IPagination {
   }
 
   goToNextPage() {
+    // to make sure the next page exist, may be page is equal 1 and totalPages is 1 also
     if(this.page + 1 <= this.totalPages) {
       this.changePage(this.page + 1);
     }
