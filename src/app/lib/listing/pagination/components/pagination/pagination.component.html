@@ -21,10 +21,10 @@
   </div>
 
   <div class="pagination-item pagination-item-next-next" (click)="changePage(page + 2)"
-       *ngIf="page === 1 && totalResults > page + 2 * rpp">
+       *ngIf="page === 1 && totalResults > page + 2 * rpp"> <!-- 13 > 1 + 2 * 6 -->
     {{ page + 2 }}
   </div>
-  <div class="pagination-item-item-clip" (click)="changePage(clipPages)" *ngIf="page + 4 < totalPages - 1">
+  <div class="pagination-item-item-clip" (click)="changePage(clipPages)" *ngIf="page + 4 < totalPages - 1"> <!-- 3+4 < 12 -->
     {{ clipPages }}
   </div>
   <div class="pagination-item pagination-item-total" (click)="changePage(totalPages)" *ngIf="

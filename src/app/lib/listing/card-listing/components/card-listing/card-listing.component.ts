@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ContentChild,
   Input,
@@ -7,7 +8,7 @@ import {
   inject
 } from '@angular/core';
 import { ICardListConfig } from "../../types/ICardListConfig";
-import { Observable, map, of, startWith, switchMap, tap } from "rxjs";
+import { Observable, startWith, switchMap } from "rxjs";
 import { IPagination } from "../../../pagination/types/IPagination";
 import { ActivatedRoute } from '@angular/router';
 
@@ -17,7 +18,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './card-listing.component.scss',
   host: {
     class: 'list-container'
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardListingComponent<Res, Data extends object[]> implements OnInit {
 
@@ -40,10 +42,7 @@ export class CardListingComponent<Res, Data extends object[]> implements OnInit 
   setData(page: number) {
     return this.config.getData(page).pipe(
       switchMap(data => {
-        this.pagination?.setPagination({
-          ...this.config.paginationMapper(data),
-          page,
-        })
+        this.pagination?.setPagination(this.config.paginationMapper(data));
         return this.config.dataMapper(data)
       })
     );
