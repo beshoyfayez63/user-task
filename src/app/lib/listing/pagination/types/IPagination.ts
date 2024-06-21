@@ -6,11 +6,13 @@ export interface IPagination {
   getCurrentPage: () => number;
   total?: number;
   rpp?: number;
+  page: number;
   changePage: (page: number) => void;
 }
 
 export interface IPaginationSettings {
   totalItems: number;
   totalPages: number;
+  page?: number
   rpp: number;
 }

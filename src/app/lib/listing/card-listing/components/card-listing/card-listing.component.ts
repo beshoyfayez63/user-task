@@ -3,11 +3,13 @@ import {
   ContentChild,
   Input,
   OnInit,
-  TemplateRef
+  TemplateRef,
+  inject
 } from '@angular/core';
 import { ICardListConfig } from "../../types/ICardListConfig";
-import { Observable, startWith, switchMap } from "rxjs";
+import { Observable, map, of, startWith, switchMap, tap } from "rxjs";
 import { IPagination } from "../../../pagination/types/IPagination";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-card-listing',
@@ -19,6 +21,8 @@ import { IPagination } from "../../../pagination/types/IPagination";
 })
 export class CardListingComponent<Res, Data extends object[]> implements OnInit {
 
+  route = inject(ActivatedRoute);
+
   @Input({required: true}) config!: ICardListConfig<Res, Data>;
   @Input({ required: true }) pagination?: IPagination;
 
@@ -28,7 +32,7 @@ export class CardListingComponent<Res, Data extends object[]> implements OnInit 
 
   ngOnInit() {
     this.data = this.pagination?.onPageChanged.pipe(
-      startWith(1),
+      startWith(this.pagination.page || 1),
       switchMap(page => this.setData(page)),
     )
   }
@@ -36,7 +40,10 @@ export class CardListingComponent<Res, Data extends object[]> implements OnInit 
   setData(page: number) {
     return this.config.getData(page).pipe(
       switchMap(data => {
-        this.pagination?.setPagination(this.config.paginationMapper(data))
+        this.pagination?.setPagination({
+          ...this.config.paginationMapper(data),
+          page,
+        })
         return this.config.dataMapper(data)
       })
     );

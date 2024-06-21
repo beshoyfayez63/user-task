@@ -26,6 +26,6 @@ export class UserService {
   }
 
   async goToUserDetailsPage(id: string | number) {
-    await this.router.navigate([`/users/${id}`])
+    await this.router.navigate([`/users/${id}`], {queryParamsHandling: 'preserve'})
   }
 }

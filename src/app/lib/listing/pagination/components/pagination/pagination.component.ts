@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import type { IPagination, IPaginationSettings } from "../../types/IPagination";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagination',
@@ -7,15 +8,30 @@ import type { IPagination, IPaginationSettings } from "../../types/IPagination";
   styleUrl: './pagination.component.scss',
   host: {
     class: 'pagination'
-  }
+  },
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginationComponent implements IPagination {
+  route = inject(ActivatedRoute);
+  router = inject(Router);
 
-  page = 1;
   totalResults = 0;
   totalPages = 0;
   clipPages = 0;
   rpp = 6;
+
+
+  protected _page = 1;
+  get page() {
+    return +this.route.snapshot.queryParams['page'] || this._page;
+  }
+  set page(value: number) {
+    this._page = value;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {page: value}
+    })
+  }
 
   @Output() onPageChanged = new EventEmitter<number>();
 
