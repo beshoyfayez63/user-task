@@ -1,16 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { search } from "../../config/search";
 import { UserService } from "../../../../features/user/services/user.service";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
   userService = inject(UserService);
 
-  config = search(this);
+  config = search(this)
 
   async goToUserDetailsPage(id: string | number | null | undefined) {
     if(!id) return;

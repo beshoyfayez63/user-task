@@ -10,18 +10,20 @@ import { environment } from "../../../../environments/environment";
 })
 export class UserService {
 
+  headers = new HttpHeaders().append('cache', 'cache');
+
   private http = inject(HttpClient);
   private router = inject(Router);
 
   fetchUsers(page: number = 1) {
     return this.http.get<IUsersRes>(`${environment.api}/users?page=${page}`, {
-      headers: new HttpHeaders().append('cache', 'cache')
+      headers: this.headers
     })
   }
 
   getUserDetails(id: string | number) {
     return this.http.get<IUserDetailRes>(`${environment.api}/users/${id}`, {
-      headers: new HttpHeaders().append('cache', 'cache')
+      headers: this.headers
     });
   }
 

@@ -1,5 +1,5 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
-import { Observable, of, tap } from "rxjs";
+import { Observable, map, of, tap } from "rxjs";
 import { inject, Injectable } from "@angular/core";
 import { CachingService } from "../services/caching.service";
 
@@ -18,12 +18,13 @@ export class CachingInterceptor implements HttpInterceptor {
 
     if(cachedResponse) return of(cachedResponse);
 
-    return this.sendReqWithCache(req, next);
+    return this.sendReqWithCache(req, next)
   }
 
   sendReqWithCache(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
-      if(event instanceof HttpResponse) this.cachingService.set(req.url, event);
-    }))
+      if(event instanceof HttpResponse) this.cachingService.set(req.url, event)
+    })
+  )
   }
 }

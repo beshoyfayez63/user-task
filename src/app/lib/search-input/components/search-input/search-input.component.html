@@ -3,7 +3,7 @@
   (onSelect)="onSelectItem.emit(selectedItem)"
   [optionLabel]="selectedItemLabel"
   [dataKey]="dataKey"
-  [suggestions]="items"
+  [suggestions]="(items | async)!"
   [placeholder]="placeholder"
   (completeMethod)="search($event)"
 >
