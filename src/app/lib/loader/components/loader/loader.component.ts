@@ -5,7 +5,6 @@ import { LoaderService } from "../../services/loader.service";
   selector: 'app-loader',
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss',
-  host: {class: 'http-loader'}
 })
 export class LoaderComponent {
 
