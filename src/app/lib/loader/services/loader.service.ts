@@ -8,14 +8,20 @@ export class LoaderService {
 
   loadingRequests = new Map<string, boolean>();
 
-  setLoading(loading: boolean, url: string) {
-    if(loading) {
-      this.loadingRequests.set(url, loading);
-      this.loadingSub.next(true);
-    }
 
-    if(!loading && this.loadingRequests.has(url)) this.loadingRequests.delete(url);
+  setLoading(loading: boolean) {
+    this.loadingSub.next(loading);
 
-    if(!this.loadingRequests.size) this.loadingSub.next(false);
+
+
+      // if(loading) {
+      //   this.loadingRequests.set(url, loading);
+      //   this.loadingSub.next(true);
+      // }
+
+      // if(!loading && this.loadingRequests.has(url)) this.loadingRequests.delete(url);
+
+      // if(!this.loadingRequests.size) this.loadingSub.next(false);
+
   }
 }

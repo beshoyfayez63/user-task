@@ -9,14 +9,13 @@ export class LoaderInterceptor implements HttpInterceptor {
   private loadingService = inject(LoaderService);
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.loadingService.setLoading(true, req.url);
+    this.loadingService.setLoading(true);
 
     return next.handle(req).pipe(
       catchError(err => {
-        this.loadingService.setLoading(false, req.url);
         return throwError(() => err);
       }),
-      finalize(() => this.loadingService.setLoading(false, req.url))
+      finalize(() => (this.loadingService.setLoading(false)))
     );
   }
 }
