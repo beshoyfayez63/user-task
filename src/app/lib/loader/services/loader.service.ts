@@ -11,17 +11,5 @@ export class LoaderService {
 
   setLoading(loading: boolean) {
     this.loadingSub.next(loading);
-
-
-
-      // if(loading) {
-      //   this.loadingRequests.set(url, loading);
-      //   this.loadingSub.next(true);
-      // }
-
-      // if(!loading && this.loadingRequests.has(url)) this.loadingRequests.delete(url);
-
-      // if(!this.loadingRequests.size) this.loadingSub.next(false);
-
   }
 }
